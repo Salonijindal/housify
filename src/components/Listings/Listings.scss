@@ -1,8 +1,8 @@
 .listings {
   margin: 2rem 1rem;
   &__card {
-    width: 250px;
-    height: fit-content;
+    width: 350px;
+    height: 320px;
     max-width: 400px;
   }
   &__item {
@@ -14,11 +14,11 @@
   }
   &__card-image {
     opacity: 60%;
-    height: 9rem;
+    height: 11rem;
   }
   &__card-avatar {
     position: absolute !important;
-    top: 0;
+    top: 50px;
     bottom: 0;
     margin: auto;
     left: 0;

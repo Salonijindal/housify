@@ -5,6 +5,8 @@ import LandingPage from "./pages/LangingPage/LangingPage";
 import Navbar from "./components/Navbar/Navbar";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Register from "./components/Register/Register";
+import SingleListPage from "./pages/SingleListPage/SingleListPage";
+
 function App() {
   const [user, setUser] = useState(null);
   const setUserData = (userEmail) => {
@@ -30,6 +32,7 @@ function App() {
             )}
           />
           <Route path="/register" render={(props) => <Register {...props} />} />
+          <Route path="/listing/:id" component={SingleListPage} />
         </Switch>
       </div>
     </BrowserRouter>
