@@ -1,0 +1,19 @@
+@use "../../partials/global" as *;
+@use "../../partials/colors";
+@use "../../partials/mixins";
+.login {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  margin: 2rem;
+  padding: 2rem;
+  text-align: center;
+  &__title {
+    margin-bottom: 1rem;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+}

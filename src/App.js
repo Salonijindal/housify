@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+import "./App.scss";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import LandingPage from "./pages/LangingPage/LangingPage";
+import Navbar from "./components/Navbar/Navbar";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import Register from "./components/Register/Register";
 function App() {
+  const [user, setUser] = useState(null);
+  const setUserData = (userEmail) => {
+    setUser(userEmail);
+  };
+  useEffect(() => {
+    const fetchUserData = () => {
+      const userData = localStorage.getItem("user");
+      setUser(userData);
+    };
+    fetchUserData();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar user={user} />
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={LandingPage} />
+          <Route
+            path="/login"
+            render={(props) => (
+              <LoginPage {...props} setUserData={setUserData} />
+            )}
+          />
+          <Route path="/register" render={(props) => <Register {...props} />} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
