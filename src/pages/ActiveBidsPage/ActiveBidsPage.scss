@@ -1,0 +1,7 @@
+@use "../../partials//colors";
+
+.list {
+  &__item {
+    display: flex;
+  }
+}

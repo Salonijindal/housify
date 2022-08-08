@@ -8,6 +8,8 @@ const LangingPage = () => {
     <>
       <Banner />
       <Listings />
+      <Listings />
+      <Listings />
     </>
   );
 };

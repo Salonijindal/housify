@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -7,13 +7,25 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import ListingInfo from "../../components/ListingInfo/ListingInfo";
+import ActiveBidsPage from "../ActiveBidsPage/ActiveBidsPage";
 import "./SingleListPage.scss";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Avatar } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Button } from "@mui/material";
 
 const SingleListPage = () => {
   const [singleList, setSingleList] = useState(null);
+  const [bidPrice, setBidPrice] = useState(null);
   const { id } = useParams();
   const [value, setValue] = React.useState("1");
+  const [listingSaved, setListingSaved] = React.useState(false);
 
+  const currentBid = (price) => {
+    console.log(price);
+    setBidPrice(price);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -36,59 +48,90 @@ const SingleListPage = () => {
   }
 
   return (
-    <main className="list">
-      <h1> Listing</h1>
-      <section className="list__section">
-        <div>
-          <img
-            className="list__image"
-            src={
-              singleList.Property.Photo[0].HighResPath
-                ? singleList.Property.Photo[0].HighResPath
-                : "https://cache15.housesigma.com/file/pix-itso/132335821/d1a10_1.jpg?46ba9d69"
-            }
-          />
-          {singleList.Media[0] == "undefined" && (
-            <a href={singleList.Media[0].MediaCategoryURL}>
-              For more, click here
-            </a>
-          )}
-        </div>
-        <div>
-          <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={handleChange}
-                aria-label="lab API tabs example"
-              >
-                <Tab label="Item One" value="1" />
-                <Tab label="Item Two" value="2" />
-              </TabList>
-            </Box>
-            <TabPanel value="1">
-              <ListingInfo
-                id={singleList.Id}
-                mlsNumber={singleList.MlsNumber}
-                address={singleList.Property.Address.AddressText}
-                price={singleList.Property.Price}
-                type={singleList.Property.Type}
-                ownershipType={singleList.Property.OwnershipType}
-                parking={singleList.Property.ParkingSpaceTotal}
-                parkingType={
-                  singleList.Property.Parking
-                    ? singleList.Property.Parking[0].Name
-                    : "None"
-                }
-                bathroom={singleList.Building.BathroomTotal}
-                bedroom={singleList.Building.Bedrooms}
-                size={singleList.Land.SizeTotal}
-                remark={singleList.PublicRemarks}
-              />
-            </TabPanel>
-            <TabPanel value="2">Item Two</TabPanel>
-          </TabContext>
-        </div>
-      </section>
+    <main className="main">
+      <header className="main__header">
+        <img
+          className="main__image"
+          alt="Listing"
+          src={
+            singleList.Property.Photo[0].HighResPath
+              ? singleList.Property.Photo[0].HighResPath
+              : "https://cache15.housesigma.com/file/pix-itso/132335821/d1a10_1.jpg?46ba9d69"
+          }
+        />
+      </header>
+      <div className="list">
+        <section className="list__options">
+          <Link to={"/"}>
+            <ArrowBackIcon />
+          </Link>
+          <Button onClick={() => setListingSaved(!listingSaved)}>
+            {listingSaved ? (
+              <FavoriteIcon color="primary" />
+            ) : (
+              <FavoriteBorderIcon color="primary" />
+            )}
+          </Button>
+        </section>
+
+        <section className="list__section">
+          <div className="list__contact-panel">
+            <Avatar
+              alt="Remy Sharp"
+              src={
+                singleList.Individual[0].PhotoHighRes
+                  ? singleList.Individual[0].PhotoHighRes
+                  : "https://cdn.realtor.ca/individual/TS637789440000000000/lowres/1135552.jpg"
+              }
+              sx={{ width: 200, height: 200 }}
+            />
+            <div>
+              <h2>{singleList.Individual[0].Name}</h2>
+              <h3>{singleList.Individual[0].Organization.Name}</h3>
+              <h3>Contact: {singleList.Individual[0].Emails[0].ContactId}</h3>
+            </div>
+          </div>
+          <div className="list__tab-section">
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList
+                  onChange={handleChange}
+                  aria-label="lab API tabs example"
+                >
+                  <Tab label="Listing Info" value="1" />
+                  <Tab label="Active Bids" value="2" />
+                </TabList>
+              </Box>
+              <TabPanel value="1">
+                <ListingInfo
+                  bid={currentBid}
+                  id={singleList.Id}
+                  mlsNumber={singleList.MlsNumber}
+                  address={singleList.Property.Address.AddressText}
+                  price={singleList.Property.Price}
+                  type={singleList.Property.Type}
+                  ownershipType={singleList.Property.OwnershipType}
+                  parking={singleList.Property.ParkingSpaceTotal}
+                  parkingType={
+                    singleList.Property.Parking
+                      ? singleList.Property.Parking[0].Name
+                      : "None"
+                  }
+                  bathroom={singleList.Building.BathroomTotal}
+                  bedroom={singleList.Building.Bedrooms}
+                  size={singleList.Land.SizeTotal}
+                  remark={singleList.PublicRemarks}
+                />
+              </TabPanel>
+              <TabPanel value="2" className="list__tab-panel">
+                <ActiveBidsPage
+                  bidPrice={bidPrice ? bidPrice : "No Actives yet"}
+                />
+              </TabPanel>
+            </TabContext>
+          </div>
+        </section>
+      </div>
     </main>
   );
 };

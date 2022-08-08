@@ -12,7 +12,7 @@ const Navbar = ({ user }) => {
       <nav className="header__nav">
         <ul className="header__list">
           <li>
-            <NavLink to="/" exact className="">
+            <NavLink to="/explore" exact className="">
               Explore
             </NavLink>
           </li>

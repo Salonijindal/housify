@@ -95,7 +95,6 @@ const Listings = () => {
           <Slider {...settings} className="listings__item">
             {listing &&
               listing.map((list) => {
-                console.log(list);
                 return (
                   <Link key={list.Id} to={`/listing/${list.Id}`}>
                     <div>

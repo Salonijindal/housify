@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Register from "./components/Register/Register";
 import SingleListPage from "./pages/SingleListPage/SingleListPage";
-
+import Explore from "./components/Explore/Explore";
 function App() {
   const [user, setUser] = useState(null);
   const setUserData = (userEmail) => {
@@ -32,6 +32,7 @@ function App() {
             )}
           />
           <Route path="/register" render={(props) => <Register {...props} />} />
+          <Route path="/explore" component={Explore} />
           <Route path="/listing/:id" component={SingleListPage} />
         </Switch>
       </div>

@@ -13,6 +13,8 @@ import Alert from "@mui/material/Alert";
 import "./Register.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import { db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
   const [userName, setUserName] = useState("");
@@ -44,9 +46,15 @@ const Register = () => {
       setError("");
       setLoading(true);
       await signup(email, password);
+      await localStorage.setItem("username", userName);
+      await setDoc(doc(db, "data", "register"), {
+        username: userName,
+        email: email,
+      });
       history.push("/login");
     } catch {
       setError("Failed to create an account");
+      console.error("Error adding document: ", e);
     }
     setLoading(false);
   };

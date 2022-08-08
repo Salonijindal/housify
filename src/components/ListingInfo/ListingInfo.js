@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import { db } from "../../firebase";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 
 import "./ListingInfo.scss";
 
 const ListingInfo = (props) => {
   const [values, setValue] = useState("");
+  const [placedBid, setPlacedBid] = useState(false);
   const {
+    bid,
     id,
     mlsNumber,
     parkingType,
@@ -23,6 +27,30 @@ const ListingInfo = (props) => {
     size,
     remark,
   } = props;
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    bid(values);
+    setPlacedBid(true);
+    try {
+      const docData = {
+        bid: values,
+      };
+      await setDoc(doc(db, "data", "listing"), docData);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+  useEffect(() => {
+    async function fetchData() {
+      const docRef = doc(db, "data", "one");
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap);
+    }
+    fetchData();
+  }, []);
 
   const parkingInfo = parking ? parking : 0;
   return (
@@ -52,19 +80,25 @@ const ListingInfo = (props) => {
           <h3>{ownershipType}</h3>
         </div>
       </div>
-      <form className="list-info__form">
+
+      <form className="list-info__form" onSubmit={handleSubmit}>
         <FormControl className="list-info__input-form">
           <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
+            disabled={placedBid}
             value={values}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
+            placeholder="Enter Amount"
           />
         </FormControl>
-        <Button variant="contained">Place Bid</Button>
+        <Button variant="contained" type="submit" disabled={placedBid}>
+          Place Bid
+        </Button>
       </form>
+      {placedBid && <label>Your Bid has been placed: ${values}</label>}
     </div>
   );
 };
