@@ -80,7 +80,7 @@
 
 //Text Styling
 @mixin mobile-page-header {
-  font-size: 1.75rem;
+  font-size: 2rem;
   line-height: 2.25rem;
   font-weight: 600;
 }
@@ -95,7 +95,7 @@
   font-weight: 600;
 }
 @mixin mobile-table-header {
-  font-size: 0.6875rem;
+  font-size: 0.9rem;
   line-height: 1rem;
   font-weight: 600;
 }
@@ -116,22 +116,22 @@
 }
 //Tablet and Desktop font sizing
 @mixin tablet-desktop-page-header {
-  font-size: 2rem;
-  line-height: 2.5rem;
+  font-size: 3rem;
+  line-height: 3.5rem;
   font-weight: 600;
 }
 @mixin tablet-desktop-subheader {
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 2rem;
   font-weight: 600;
 }
 @mixin tablet-desktop-labels-links-buttons {
-  font-size: 0.875rem;
+  font-size: 1.5rem;
   line-height: 1.375rem;
   font-weight: 600;
 }
 @mixin tablet-desktop-table-header {
-  font-size: 0.75rem;
+  font-size: 1.3rem;
   line-height: 1.125rem;
   font-weight: 600;
 }

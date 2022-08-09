@@ -1,0 +1,22 @@
+@use "../../partials/global" as *;
+@use "../../partials/colors";
+@use "../../partials/mixins";
+
+.footer {
+  display: flex;
+  justify-content: center;
+  font-size: 0.6875rem;
+  padding: 2.5rem 0;
+  background-color: #916b4c;
+  color: colors.$primaryLightColor;
+
+  @include mixins.tablet {
+    font-size: 0.75rem;
+    padding: 4.5rem 0 2.5rem 0;
+  }
+
+  @include mixins.desktop {
+    font-size: 0.75rem;
+    padding: 5.5rem 0 3rem 0;
+  }
+}

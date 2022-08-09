@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import LandingPage from "./pages/LangingPage/LangingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import Navbar from "./components/Navbar/Navbar";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Register from "./components/Register/Register";
 import SingleListPage from "./pages/SingleListPage/SingleListPage";
 import Explore from "./components/Explore/Explore";
+import Footer from "./components/Footer/Footer";
 function App() {
   const [user, setUser] = useState(null);
   const setUserData = (userEmail) => {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/listing/:id" component={SingleListPage} />
         </Switch>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }

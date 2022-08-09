@@ -65,7 +65,7 @@ const Register = () => {
 
   return (
     <Card className="register">
-      <h1 className="register__title">Sign Up Form</h1>
+      <h2 className="register__title">Sign Up Form</h2>
       {error && <Alert severity="error">{error}</Alert>}
       <form className="register__form" onSubmit={handleSubmit}>
         <TextField
@@ -130,13 +130,18 @@ const Register = () => {
             label="Confirm Password"
           />
         </FormControl>
-        <Button disabled={loading} type="submit" variant="contained">
+        <Button
+          className="register__button"
+          disabled={loading}
+          type="submit"
+          variant="contained"
+        >
           Sign Up
         </Button>
       </form>
-      <h3>
+      <p>
         Already have an Account? <Link to="/login">Log In</Link>
-      </h3>
+      </p>
     </Card>
   );
 };

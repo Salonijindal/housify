@@ -53,7 +53,7 @@ const Login = ({ setUserData }) => {
 
   return (
     <Card className="login">
-      <h1 className="login__title">LOGIN</h1>
+      <h2 className="login__title">LOGIN</h2>
       {error && <Alert severity="error">{error}</Alert>}
       <form className="login__form" onSubmit={handleSubmit}>
         <TextField
@@ -87,13 +87,18 @@ const Login = ({ setUserData }) => {
             label="Password"
           />
         </FormControl>
-        <Button variant="contained" type="submit" disabled={loading}>
+        <Button
+          className="register__button"
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
           Login
         </Button>
       </form>
-      <h3>
+      <p>
         Need an Account? <Link to="/register">Sign Up</Link>
-      </h3>
+      </p>
     </Card>
   );
 };

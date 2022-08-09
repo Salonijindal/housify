@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Listings.scss";
 import Slider from "react-slick";
 import Card from "@mui/material/Card";
@@ -6,39 +6,28 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Avatar, CardActionArea } from "@mui/material";
-import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import backArrow from "../../assets/icons/back-arrow.png";
+import nextArrow from "../../assets/icons/forward-arrow.png";
 function SampleNextArrow(props) {
   const { onClick } = props;
-  return <button className="slide-arrow next-arrow" onClick={onClick}></button>;
+  return (
+    <button className="slide-arrow next-arrow" onClick={onClick}>
+      <img src={nextArrow} className="next" />
+    </button>
+  );
 }
 
 function SamplePrevArrow(props) {
   const { onClick } = props;
-  return <button className="slide-arrow prev-arrow" onClick={onClick}></button>;
+  return (
+    <button className="slide-arrow prev-arrow" onClick={onClick}>
+      <img src={backArrow} className="back" />
+    </button>
+  );
 }
 
-const Listings = () => {
-  const [listing, setListing] = useState([]);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    console.log("This will run when component renders");
-
-    axios
-      .get("http://localhost:8080/listings")
-      .then((response) => {
-        const listingData = response.data;
-        setListing(listingData);
-        setError(false);
-      })
-      .catch((err) => {
-        console.log("Couldnt fetch a listing", err);
-        setError(true);
-      });
-  }, []);
-
+const Listings = ({ listing, title }) => {
   useEffect(() => {
     console.log("is listing printed out", listing);
   }, [listing]);
@@ -48,7 +37,7 @@ const Listings = () => {
     dots: true,
     infinte: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     swipe: true,
     swipeToSlide: true,
@@ -84,14 +73,12 @@ const Listings = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
-  if (error || listing == []) {
-    return <h1>Loading...</h1>;
-  }
+
   return (
     <section className="listings">
-      <h1>Explore Listings</h1>
+      <h3 className="listings__title">Featured Listings in {title}</h3>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ maxWidth: "90%", background: "white" }}>
+        <div style={{ maxWidth: "100%", background: "white" }}>
           <Slider {...settings} className="listings__item">
             {listing &&
               listing.map((list) => {
@@ -121,7 +108,7 @@ const Listings = () => {
                             src={
                               list.Individual[0].Photo
                                 ? list.Individual[0].Photo
-                                : "https://cdn.realtor.ca/individual/TS637789440000000000/lowres/1135552.jpg"
+                                : ""
                             }
                           />
                           <CardContent>

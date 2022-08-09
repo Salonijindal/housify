@@ -1,4 +1,14 @@
 .explore {
   &__search-form {
+    text-align: center;
+  }
+  &__filters {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  &__search-input {
+    text-align: left;
+    width: 15%;
   }
 }

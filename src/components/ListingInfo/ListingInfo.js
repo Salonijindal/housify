@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
 import { db } from "../../firebase";
-import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import TextField from "@mui/material/TextField";
 
 import "./ListingInfo.scss";
 
@@ -36,69 +33,101 @@ const ListingInfo = (props) => {
     setPlacedBid(true);
     try {
       const docData = {
+        id,
+        mlsNumber,
         bid: values,
+        user: localStorage.getItem("user"),
       };
-      await setDoc(doc(db, "data", "listing"), docData);
+      await setDoc(doc(db, "data", `${id}`), docData);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
   useEffect(() => {
     async function fetchData() {
-      const docRef = doc(db, "data", "one");
+      const docRef = doc(db, "data", `${id}`);
       const docSnap = await getDoc(docRef);
       console.log(docSnap);
+      if (docSnap._document.data.value.mapValue.fields.id.stringValue === id) {
+        setValue(docSnap._document.data.value.mapValue.fields.bid.stringValue);
+        console.log(
+          docSnap._document.data.value.mapValue.fields.bid.stringValue
+        );
+        setPlacedBid(true);
+        bid(values);
+      }
     }
     fetchData();
-  }, []);
+  }, [values]);
 
   const parkingInfo = parking ? parking : 0;
   return (
     <div className="list-info">
-      <h1>{address}</h1>
-      <h2 className="list-info__subtitle">{`${bedroom} Bed, ${bathroom} bath, ${parkingInfo} parking`}</h2>
+      <h2>{address}</h2>
       <p className="list-info__description">{remark}</p>
-      <div>
+      <div className="list-info__list">
         <div className="list-info__item">
-          <h3>Price</h3>
-          <h3>{price}</h3>
+          <p>Bedrooms</p>
+          <p>{bedroom}</p>
         </div>
         <div className="list-info__item">
-          <h3>Size</h3>
-          <h3>{size}</h3>
+          <p>Bathrooms</p>
+          <p>{bathroom}</p>
         </div>
         <div className="list-info__item">
-          <h3>Type</h3>
-          <h3>{type}</h3>
+          <p>Price</p>
+          <p>{price}</p>
         </div>
         <div className="list-info__item">
-          <h3>Parking Type</h3>
-          <h3>{parkingType ? parkingType : "None"}</h3>
+          <p>Size</p>
+          <p>{size}</p>
         </div>
         <div className="list-info__item">
-          <h3>Ownership Type</h3>
-          <h3>{ownershipType}</h3>
+          <p>Type</p>
+          <p>{type}</p>
+        </div>
+        <div className="list-info__item">
+          <p>Parkings</p>
+          <p>{parkingInfo}</p>
+        </div>
+        <div className="list-info__item">
+          <p>Parking Type</p>
+          <p>{parkingType ? parkingType : "None"}</p>
+        </div>
+        <div className="list-info__item">
+          <p>Ownership Type</p>
+          <p>{ownershipType}</p>
         </div>
       </div>
-
       <form className="list-info__form" onSubmit={handleSubmit}>
-        <FormControl className="list-info__input-form">
-          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-amount"
-            disabled={placedBid}
-            value={values}
-            onChange={handleChange}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            label="Amount"
-            placeholder="Enter Amount"
-          />
-        </FormControl>
-        <Button variant="contained" type="submit" disabled={placedBid}>
+        <TextField
+          className="list-info__input-form"
+          id="outlined-number"
+          required
+          label="Amount"
+          type="amount"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={values}
+          onChange={handleChange}
+          placeholder="Enter Amount"
+          disabled={placedBid}
+        />
+        <Button
+          variant="contained"
+          className="list-info__button"
+          type="submit"
+          disabled={placedBid}
+        >
           Place Bid
         </Button>
       </form>
-      {placedBid && <label>Your Bid has been placed: ${values}</label>}
+      {placedBid && (
+        <label className="list-info__label">
+          Your Bid has been placed: ${values}
+        </label>
+      )}
     </div>
   );
 };

@@ -26,6 +26,7 @@ const SingleListPage = () => {
     console.log(price);
     setBidPrice(price);
   };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -50,15 +51,24 @@ const SingleListPage = () => {
   return (
     <main className="main">
       <header className="main__header">
-        <img
-          className="main__image"
-          alt="Listing"
-          src={
-            singleList.Property.Photo[0].HighResPath
-              ? singleList.Property.Photo[0].HighResPath
-              : "https://cache15.housesigma.com/file/pix-itso/132335821/d1a10_1.jpg?46ba9d69"
-          }
-        />
+        {singleList.Media.length === 0 ? (
+          <img
+            className="main__image"
+            alt="Listing"
+            src={
+              singleList.Property.Photo[0].HighResPath
+                ? singleList.Property.Photo[0].HighResPath
+                : "https://cache15.housesigma.com/file/pix-itso/132335821/d1a10_1.jpg?46ba9d69"
+            }
+          />
+        ) : (
+          <iframe
+            className="main__image"
+            src={singleList.AlternateURL.VideoLink}
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        )}
       </header>
       <div className="list">
         <section className="list__options">
@@ -81,14 +91,14 @@ const SingleListPage = () => {
               src={
                 singleList.Individual[0].PhotoHighRes
                   ? singleList.Individual[0].PhotoHighRes
-                  : "https://cdn.realtor.ca/individual/TS637789440000000000/lowres/1135552.jpg"
+                  : ""
               }
               sx={{ width: 200, height: 200 }}
             />
-            <div>
-              <h2>{singleList.Individual[0].Name}</h2>
-              <h3>{singleList.Individual[0].Organization.Name}</h3>
-              <h3>Contact: {singleList.Individual[0].Emails[0].ContactId}</h3>
+            <div className="">
+              <h3>{singleList.Individual[0].Name}</h3>
+              <p>{singleList.Individual[0].Organization.Name}</p>
+              <p>Contact: {singleList.Individual[0].Emails[0].ContactId}</p>
             </div>
           </div>
           <div className="list__tab-section">

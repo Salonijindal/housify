@@ -1,64 +1,66 @@
-import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import CustomMaps from "../CustomMaps/CustomMaps";
 import "./Explore.scss";
+
 const Explore = () => {
+  const [location, setLocation] = useState({
+    lat: 43.4516,
+    lng: -80.4925,
+  });
+
+  const handleCityChange = (e) => {
+    switch (e.target.value) {
+      case "waterloo":
+        setLocation({
+          lat: 43.4643,
+          lng: -80.5204,
+        });
+        break;
+      case "kitchener":
+        setLocation({
+          lat: 43.4516,
+          lng: -80.4925,
+        });
+        break;
+      case "cambridge":
+        setLocation({
+          lat: 43.3616,
+          lng: -80.3144,
+        });
+        break;
+      default:
+        setLocation({
+          lat: 43.4516,
+          lng: -80.4925,
+        });
+    }
+  };
   return (
     <section className="explore">
       <div component="form" className="explore__search-form">
-        <InputBase
-          placeholder="Search Listings"
-          inputProps={{ "aria-label": "search google maps" }}
-          className="banner__search-input"
-        />
-        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-        <InputBase
-          placeholder="Beds"
-          inputProps={{ "aria-label": "search google maps" }}
-          className="banner__search-input"
-        />
-        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-        <InputBase
-          placeholder="Bath"
-          inputProps={{ "aria-label": "search google maps" }}
-          className="banner__search-input"
-        />
-        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
+        <FormControl
+          sx={{ m: 1, minWidth: 120 }}
+          className="explore__search-input"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
+          <InputLabel id="demo-simple-select-label">Select City</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            defaultValue={"kitchener"}
+            label="select city"
+            onChange={handleCityChange}
           >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              General settings
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              I am an accordion
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-              feugiat. Aliquam eget maximus est, id dignissim quam.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+            <MenuItem value={"kitchener"}>Kitchener</MenuItem>
+            <MenuItem value={"waterloo"}>Waterloo</MenuItem>
+            <MenuItem value={"cambridge"}>Cambridge</MenuItem>
+          </Select>
+        </FormControl>
       </div>
+      <CustomMaps location={location} zoomLevel={14} />
     </section>
   );
 };

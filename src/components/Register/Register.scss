@@ -8,6 +8,8 @@
   margin: 2rem;
   padding: 2rem;
   text-align: center;
+  width: 35vw;
+  margin: 5vh auto;
   &__title {
     margin-bottom: 1rem;
   }
@@ -15,5 +17,9 @@
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
+    text-align: center;
+  }
+  &__button {
+    align-self: center;
   }
 }

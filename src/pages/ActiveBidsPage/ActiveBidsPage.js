@@ -6,6 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import "./ActiveBidsPage.scss";
+import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const ActiveBidsPage = ({ bidPrice }) => {
   const [bid, setBid] = useState([]);
@@ -13,15 +15,22 @@ const ActiveBidsPage = ({ bidPrice }) => {
   console.log(bid);
 
   useEffect(() => {
-    if (bidPrice !== "No Actives yet") {
-      let updatedValue = {
-        name: localStorage.getItem("username"),
-        price: `${bidPrice}`,
-      };
-      setBid([data, updatedValue]);
-    } else {
-      setBid([data]);
+    async function fetchData() {
+      const docRef = doc(db, "data", "register");
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap);
+      if (bidPrice !== "No Actives yet") {
+        let updatedValue = {
+          name: docSnap._document.data.value.mapValue.fields.username
+            .stringValue,
+          price: `${bidPrice}`,
+        };
+        setBid([data, updatedValue]);
+      } else {
+        setBid([data]);
+      }
     }
+    fetchData();
   }, []);
 
   return (
