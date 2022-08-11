@@ -12,7 +12,7 @@ const LocationPin = ({ text, Id }) => (
     <Tooltip title={text} arrow TransitionComponent={Zoom}>
       <Link key={Id} to={`/listing/${Id}`}>
         <IconButton className="pin-icon">
-          <LocationOnIcon />
+          <LocationOnIcon color="primary" fontSize="large" />
         </IconButton>
       </Link>
     </Tooltip>
@@ -22,7 +22,6 @@ const LocationPin = ({ text, Id }) => (
 const CustomMaps = ({ location, zoomLevel }) => {
   const [mapData, setMapData] = useState(null);
   useEffect(() => {
-    console.log("This will run when component renders");
     axios
       .get("http://localhost:8080/listings")
       .then((res) => {
@@ -38,13 +37,10 @@ const CustomMaps = ({ location, zoomLevel }) => {
       })
       .catch((err) => {
         console.log("Couldnt fetch a listing", err);
-        // setError(true);
       });
-  }, []);
+  }, [mapData]);
   return (
     <div className="map">
-      {/* <h2 className="map-h2">Come Visit Us At Our Campus</h2> */}
-
       <div className="google-map">
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyDvLUm0FpK0eYFKwR5rz_u5I7bUuwAS_JA" }}

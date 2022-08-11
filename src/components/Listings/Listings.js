@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Listings.scss";
 import Slider from "react-slick";
 import Card from "@mui/material/Card";
@@ -9,11 +9,18 @@ import { Avatar, CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 import backArrow from "../../assets/icons/back-arrow.png";
 import nextArrow from "../../assets/icons/forward-arrow.png";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Marcellus"].join(","),
+  },
+});
+
 function SampleNextArrow(props) {
   const { onClick } = props;
   return (
     <button className="slide-arrow next-arrow" onClick={onClick}>
-      <img src={nextArrow} className="next" />
+      <img alt="Next Arrow" src={nextArrow} className="next" />
     </button>
   );
 }
@@ -22,16 +29,12 @@ function SamplePrevArrow(props) {
   const { onClick } = props;
   return (
     <button className="slide-arrow prev-arrow" onClick={onClick}>
-      <img src={backArrow} className="back" />
+      <img alt="Prev Arrow" src={backArrow} className="back" />
     </button>
   );
 }
 
 const Listings = ({ listing, title }) => {
-  useEffect(() => {
-    console.log("is listing printed out", listing);
-  }, [listing]);
-
   const settings = {
     arrows: true,
     dots: true,
@@ -84,14 +87,16 @@ const Listings = ({ listing, title }) => {
               listing.map((list) => {
                 return (
                   <Link key={list.Id} to={`/listing/${list.Id}`}>
-                    <div>
+                    <ThemeProvider theme={theme}>
                       <Card
                         className="listings__card"
                         key={list.Id}
                         id={list.MlsNumber}
+                        sx={{ typography: "Marcellus" }}
                       >
                         <CardActionArea className="listings__card-container">
                           <CardMedia
+                            alt="listing"
                             component="img"
                             height="140"
                             image={
@@ -99,7 +104,6 @@ const Listings = ({ listing, title }) => {
                                 ? list.Property.Photo[0].HighResPath
                                 : "https://cache15.housesigma.com/file/pix-itso/132335821/d1a10_1.jpg?46ba9d69"
                             }
-                            alt="green iguana"
                             className="listings__card-image"
                           />
                           <Avatar
@@ -116,6 +120,7 @@ const Listings = ({ listing, title }) => {
                               gutterBottom
                               variant="h5"
                               component="div"
+                              sx={{ typography: "Marcellus" }}
                             >
                               {`Listed: ${list.Property.Price}`}
                             </Typography>
@@ -128,7 +133,7 @@ const Listings = ({ listing, title }) => {
                           </CardContent>
                         </CardActionArea>
                       </Card>
-                    </div>
+                    </ThemeProvider>
                   </Link>
                 );
               })}

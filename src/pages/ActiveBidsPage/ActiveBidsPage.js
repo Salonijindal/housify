@@ -12,13 +12,11 @@ import { doc, getDoc } from "firebase/firestore";
 const ActiveBidsPage = ({ bidPrice }) => {
   const [bid, setBid] = useState([]);
   let data = { name: "Sudeep Jindal", price: "260,000" };
-  console.log(bid);
 
   useEffect(() => {
     async function fetchData() {
       const docRef = doc(db, "data", "register");
       const docSnap = await getDoc(docRef);
-      console.log(docSnap);
       if (bidPrice !== "No Actives yet") {
         let updatedValue = {
           name: docSnap._document.data.value.mapValue.fields.username

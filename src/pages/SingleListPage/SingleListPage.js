@@ -23,7 +23,6 @@ const SingleListPage = () => {
   const [listingSaved, setListingSaved] = React.useState(false);
 
   const currentBid = (price) => {
-    console.log(price);
     setBidPrice(price);
   };
 
@@ -34,7 +33,6 @@ const SingleListPage = () => {
     axios
       .get(`http://localhost:8080/listings/${id}`)
       .then((response) => {
-        console.log(response.data);
         const data = response.data;
 
         setSingleList(data);
@@ -53,8 +51,8 @@ const SingleListPage = () => {
       <header className="main__header">
         {singleList.Media.length === 0 ? (
           <img
+            alt="Listing Realtor"
             className="main__image"
-            alt="Listing"
             src={
               singleList.Property.Photo[0].HighResPath
                 ? singleList.Property.Photo[0].HighResPath
@@ -63,6 +61,7 @@ const SingleListPage = () => {
           />
         ) : (
           <iframe
+            title="property"
             className="main__image"
             src={singleList.AlternateURL.VideoLink}
             frameBorder="0"

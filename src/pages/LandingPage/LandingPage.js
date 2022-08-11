@@ -5,19 +5,15 @@ import "./LandingPage.scss";
 import axios from "axios";
 
 const LandingPage = () => {
-  const [listing, setListing] = useState([]);
   const [kitchenerData, setKitchenerData] = useState([]);
   const [cambridgeData, setCambridgeData] = useState([]);
   const [waterlooData, setWaterlooData] = useState([]);
   const [error, setError] = useState(false);
   useEffect(() => {
-    console.log("This will run when component renders");
     axios
       .get("http://localhost:8080/listings")
       .then((response) => {
         const listingData = response.data;
-        console.log("listingData", listingData);
-        setListing(listingData);
         setKitchenerData(
           listingData.filter((item) => {
             return item.Property.Address.AddressText.includes("Kitchener");

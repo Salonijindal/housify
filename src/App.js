@@ -37,7 +37,7 @@ function App() {
           <Route path="/listing/:id" component={SingleListPage} />
         </Switch>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

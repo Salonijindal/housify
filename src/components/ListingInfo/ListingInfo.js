@@ -47,12 +47,9 @@ const ListingInfo = (props) => {
     async function fetchData() {
       const docRef = doc(db, "data", `${id}`);
       const docSnap = await getDoc(docRef);
-      console.log(docSnap);
+
       if (docSnap._document.data.value.mapValue.fields.id.stringValue === id) {
         setValue(docSnap._document.data.value.mapValue.fields.bid.stringValue);
-        console.log(
-          docSnap._document.data.value.mapValue.fields.bid.stringValue
-        );
         setPlacedBid(true);
         bid(values);
       }
