@@ -23,8 +23,16 @@ please refer through the Quick Start instructions.
 
 ## Screenshots
 
+<<<<<<< HEAD
 ![App Screenshot]("../../public/Home.png?")
 ![App Screenshot]("../../public/Listing-info.png?raw=true")
 ![App Screenshot]("../../public/Listing-info2.png?raw=true")
 ![App Screenshot]("../../public/Listing.png?raw=true")
 ![App Screenshot]("../../public/Explore.png?raw=true")
+=======
+![App Screenshot]("../../public/Home.png?raw=true")
+![App Screenshot]("../../public/Listing-info.png?raw=true "Optional Title"")
+![App Screenshot]("../../public/Listing-info2.png?raw=true "Optional Title"")
+![App Screenshot]("../../public/Listing.png?raw=true "Optional Title"")
+![App Screenshot]("../../public/Explore.png?raw=true "Optional Title"")
+>>>>>>> 3368b96dac2b7c67243b98dd7b2f6981b14cb69f
