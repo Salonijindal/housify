@@ -28,3 +28,9 @@ please refer through the Quick Start instructions.
 ![App Screenshot]("../../public/Listing-info2.png?raw=true")
 ![App Screenshot]("../../public/Listing.png?raw=true")
 ![App Screenshot]("../../public/Explore.png?raw=true")
+
+## Lessons learned
+
+Increase Scalibility
+Integrate Live API of real eState
+Create "My favourite Listing Tab"
