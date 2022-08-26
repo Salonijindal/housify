@@ -31,7 +31,7 @@ const SingleListPage = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/listings/${id}`)
+      .get(`https://housbidy-api.herokuapp.com/listings/${id}`)
       .then((response) => {
         const data = response.data;
 

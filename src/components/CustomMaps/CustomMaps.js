@@ -23,7 +23,7 @@ const CustomMaps = ({ location, zoomLevel }) => {
   const [mapData, setMapData] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/listings")
+      .get("https://housbidy-api.herokuapp.com/listings")
       .then((res) => {
         const data = res.data.map((item) => {
           return {

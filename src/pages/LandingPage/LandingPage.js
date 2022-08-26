@@ -11,7 +11,7 @@ const LandingPage = () => {
   const [error, setError] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/listings")
+      .get("https://housbidy-api.herokuapp.com/listings")
       .then((response) => {
         const listingData = response.data;
         setKitchenerData(
