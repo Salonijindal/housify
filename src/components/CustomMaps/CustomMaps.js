@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Zoom from "@mui/material/Zoom";
 import "./CustomMaps.scss";
 import { Tooltip } from "@mui/material";
+
 const LocationPin = ({ text, Id }) => (
   <div className="pin">
     <Tooltip title={text} arrow TransitionComponent={Zoom}>
@@ -38,12 +39,12 @@ const CustomMaps = ({ location, zoomLevel }) => {
       .catch((err) => {
         console.log("Couldnt fetch a listing", err);
       });
-  }, [mapData]);
+  }, []);
   return (
     <div className="map">
       <div className="google-map">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDvLUm0FpK0eYFKwR5rz_u5I7bUuwAS_JA" }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
           center={location}
           zoom={zoomLevel}
         >
