@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Zoom from "@mui/material/Zoom";
 import "./CustomMaps.scss";
 import { Tooltip } from "@mui/material";
-
 const LocationPin = ({ text, Id }) => (
   <div className="pin">
     <Tooltip title={text} arrow TransitionComponent={Zoom}>
