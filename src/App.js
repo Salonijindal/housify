@@ -7,7 +7,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Register from "./components/Register/Register";
 import SingleListPage from "./pages/SingleListPage/SingleListPage";
 import Explore from "./components/Explore/Explore";
-import Footer from "./components/Footer/Footer";
 function App() {
   const [user, setUser] = useState(null);
   const setUserData = (userEmail) => {
