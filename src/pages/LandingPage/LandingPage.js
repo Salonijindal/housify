@@ -11,7 +11,7 @@ const LandingPage = () => {
   const [error, setError] = useState(false);
   useEffect(() => {
     axios
-      .get("https://housebidy-api.netlify.app/listings")
+      .get("https://housbidy-api.onrender.com//listings")
       .then((response) => {
         const listingData = response.data;
         setKitchenerData(

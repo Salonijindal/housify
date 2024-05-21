@@ -23,7 +23,7 @@ const CustomMaps = ({ location, zoomLevel }) => {
   const [mapData, setMapData] = useState(null);
   useEffect(() => {
     axios
-      .get("https://housebidy-api.netlify.app/listings")
+      .get("https://housbidy-api.onrender.com//listings")
       .then((res) => {
         const data = res.data.map((item) => {
           return {
