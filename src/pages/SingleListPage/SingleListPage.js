@@ -31,7 +31,7 @@ const SingleListPage = () => {
   };
   useEffect(() => {
     axios
-      .get(`https://housbidy-api.onrender.com//listings/${id}`)
+      .get(`https://housbidy-api.onrender.com/listings/${id}`)
       .then((response) => {
         const data = response.data;
 
